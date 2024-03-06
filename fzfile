@@ -1,0 +1,16 @@
+#!/bin/bash
+# Usage : fzfile.sh $1
+# Example : fzfile.sh access_log 
+# Then type the string you are seeking (ex : /admin/) and press enter
+# Vim will be opened at the line matching the selected string in fzf
+# Set it in path or through an alias for an easy use
+
+# Step 1 & 2: Read file and use fzf with line numbers
+selected=$(cat -n $1 | fzf | awk '{print $1}')
+
+# Step 3: Open an editor at the selected line
+# Replace `vim` with your editor of choice, e.g., `nano`, `code` for VS Code (with -g option), etc.
+if [[ ! -z $selected ]]; then
+  vim +$selected $1
+fi
+
